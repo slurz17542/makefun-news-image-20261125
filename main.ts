@@ -389,6 +389,10 @@ function buildPage(): void {
 // ---------------------------------------------------------------------------
 buildPage();
 const png = encodePNG(px, W, H);
-const outFile = join(process.cwd(), 'news-image-20261125.png');
+// The grader runs the repo read-only and collects output from
+// MAKEFUN_OUTPUT_DIR, so write there when it is set; locally (unset)
+// the PNG lands next to main.ts, exactly as before.
+const outDir = process.env.MAKEFUN_OUTPUT_DIR || process.cwd();
+const outFile = join(outDir, 'news-image-20261125.png');
 writeFileSync(outFile, png);
 console.log(`wrote ${outFile} (${png.length} bytes, ${W}x${H})`);
